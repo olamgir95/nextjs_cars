@@ -46,11 +46,6 @@ export interface CustomButtonProps {
   handleClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export interface FilterItemProps {
-  title: string;
-  options: string[];
-}
-
 export interface PaginationProps {
   pageNumber: number;
   isNext: boolean;
@@ -70,4 +65,14 @@ export interface OptionProps {
 export interface CustomFilterProps {
   title: string;
   options: OptionProps[];
+}
+
+export interface ShowMoreProps {
+  pageNumber: number;
+  isNext: boolean;
+}
+
+export interface SearchManuFacturerProps {
+  manufacturer: string;
+  setManuFacturer: (manufacturer: string) => void;
 }

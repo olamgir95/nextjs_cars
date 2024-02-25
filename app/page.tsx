@@ -1,5 +1,4 @@
-import { CarCard, Pagination, SearchBar } from "@components";
-import CustomFilter from "@components/CustomFilter";
+import { CarCard, Pagination, SearchBar, CustomFilter } from "@components";
 import { fuels, yearsOfProduction } from "@constants";
 import { CarProps, HomeProps } from "@types";
 import { fetchCars } from "@utils";
