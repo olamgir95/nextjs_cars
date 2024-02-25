@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteSearchParams, updateSearchParams } from "@utils";
 import { FilterItemProps } from "@types";
+import Image from "next/image";
 
 const Filter = ({ title, options }: FilterItemProps) => {
   const router = useRouter();
@@ -57,10 +58,10 @@ const Filter = ({ title, options }: FilterItemProps) => {
       onClick={() => setOpenModal(!openModal)}
       className="flex flex-col items-center relative text-[14px] leading-[17px] justify-center cursor-pointer"
     >
-      <div className="flex w-max justify-center items-center rounded-lg border-black-300 border-[1px]">
+      <div className="flex w-max justify-center items-center gap-3 px-4 py-2.5 rounded-lg border-black-300 border-[1px]">
         <button
           type="button"
-          className="py-3 px-4 flex justify-center items-center gap-2"
+          className="flex justify-center items-center gap-2"
         >
           {title}
           <div
@@ -69,16 +70,18 @@ const Filter = ({ title, options }: FilterItemProps) => {
             } w-[10px] h-[10px] bg-secondary-orange rounded-full`}
           />
         </button>
-        <img
+        <Image
           src="/arrow-down.svg"
-          className={`${openModal ? "pl-[18px] rotate-180" : "pr-[18px]"}`}
+          width={10}
+          height={10}
+          className={`${openModal ? "rotate-180" : ""}`}
           alt="down arrow"
         />
       </div>
 
       {openModal && (
         <div
-          className="flex flex-col absolute top-12 justify-start items-start w-full max-h-[200px] snap-y overflow-auto outline-0 border-[1px] border-black-300 bg-white-600 rounded-lg z-10 text-left"
+          className="flex flex-col absolute top-12 justify-start items-start max-h-[200px] snap-y overflow-auto outline-0 border-[1px] border-black-300 bg-white-600 rounded-lg z-10 text-left"
           defaultValue="default"
         >
           {options?.map((option) => (
@@ -88,7 +91,7 @@ const Filter = ({ title, options }: FilterItemProps) => {
               value={option}
               className={`${
                 selected === option ? "font-bold text-black" : "text-gray-600"
-              } snap-center hover:bg-[#efefef] w-full p-2 text-left`}
+              } snap-center hover:bg-[#efefef] y-2 px-4 text-left`}
               onClick={(e) => handleClick(e)}
             >
               {option}

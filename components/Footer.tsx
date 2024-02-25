@@ -1,9 +1,16 @@
 import { footerLinks } from "@constants";
+import Image from "next/image";
 
 const Footer = () => (
   <footer className="flex max-md:flex-col flex-wrap lg:justify-between gap-x-32 gap-y-12 text-black-400 sm:px-16 px-6 py-10 mt-5">
     <div className="flex flex-col justify-start items-start gap-6 pr-10">
-      <img src="/logo.svg" alt="logo" />
+      <Image
+        src="/logo.svg"
+        alt="logo"
+        width={118}
+        height={18}
+        className="object-contain"
+      />
       <p className="text-base text-gray-700">
         Carent 2020. <br />
         All Rights Reserved &copy;
@@ -20,16 +27,13 @@ const Footer = () => (
           {item.isSocialMedia ? (
             <div className="flex gap-5">
               {item.links.map((link) => (
-                <a
-                  href={link.url}
-                  key={link.title}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
+                <a href={link.url} target="_blank" rel="noreferrer">
+                  <Image
                     src={link.icon}
                     alt={link.title}
-                    className="w-8 h-8 object-contain"
+                    width={32}
+                    height={32}
+                    className="object-contain"
                   />
                 </a>
               ))}

@@ -1,17 +1,18 @@
 "use client";
 
 import { SearchButtonProps } from "@types";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 const SearchButton = ({ otherClasses, imgUrl, imgAlt }: SearchButtonProps) => (
-  <button
-    type="submit"
-    className={`max-sm:hidden -ml-3 w-[40px] h-[40px] z-10 ${otherClasses}`}
-  >
-    <img
+  <button type="submit" className={`max-sm:hidden -ml-3 z-10 ${otherClasses}`}>
+    <Image
       src={imgUrl || "/magnifying-glass.svg"}
       alt={imgAlt || "magnifying glass"}
+      width={40}
+      height={40}
+      className="object-contain"
     />
   </button>
 );
@@ -60,9 +61,11 @@ const SearchBar = () => {
       onSubmit={handleSearch}
     >
       <div className="flex-1 max-sm:w-full flex justify-start items-center relative">
-        <img
+        <Image
+          width={25}
+          height={25}
           src="/car-logo.svg"
-          className="absolute w-[25px] h-[25px] ml-4"
+          className="absolute  ml-4"
           alt="car logo"
         />
         <input
@@ -75,7 +78,9 @@ const SearchBar = () => {
       </div>
 
       <div className="flex-1 max-sm:w-full flex justify-start items-center relative">
-        <img
+        <Image
+          width={25}
+          height={25}
           src="/model-icon.png"
           className="absolute w-[25px] h-[25px] ml-4"
           alt="car model"
@@ -89,12 +94,7 @@ const SearchBar = () => {
         <SearchButton otherClasses="sm:hidden" />
       </div>
 
-      <button
-        type="submit"
-        className="max-sm:hidden -ml-3 w-[40px] h-[40px] z-10"
-      >
-        <img src="/magnifying-glass.svg" alt="magnifying glass" />
-      </button>
+      <SearchButton otherClasses="max-sm:hidden" />
     </form>
   );
 };
