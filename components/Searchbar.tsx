@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 
 const SearchButton = ({ otherClasses, imgUrl, imgAlt }: SearchButtonProps) => (
-  <button type="submit" className={`max-sm:hidden -ml-3 z-10 ${otherClasses}`}>
+  <button type="submit" className={` -ml-3 z-10 ${otherClasses}`}>
     <Image
       src={imgUrl || "/magnifying-glass.svg"}
       alt={imgAlt || "magnifying glass"}

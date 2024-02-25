@@ -35,7 +35,7 @@ First, run the development server:
             DEFAULT: "rgba(59,60,152,0.03)",
             100: "rgba(59,60,152,0.02)",
           },
-          gray: "#747A88",
+          grey: "#747A88",
         },
       },
     },
@@ -50,8 +50,27 @@ First, run the development server:
 Create a Next.js 13 project using,
 
 ```bash
+npx create-next-app@latest
+```
 
+- What is your project named? **_carhub_**
+- Would you like to add TypeScript with this project? **_Yes_**
+- Would you like to use ESLint with this project? **_No_**
+- Would you like to use Tailwind CSS with this project? **_Yes_**
+- Would you like to use the `src/ directory` with this project? **_No_**
+- What import alias would you like configured? **_@\*_**
 
+### Things to know
+
+To enable the functionality of dynamic images, we need to inform Next.js explicitly that we anticipate receiving dynamic image URLs from a particular source. This can be achieved by adjusting the configuration of Next.js as follows:
+
+```javascript
+const nextConfig = {
+  images: {
+    domains: ["cdn.imagin.studio"],
+  },
+};
+```
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
@@ -71,4 +90,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 2. Global state management: We can explore options such as using the Context API or a state management library like Redux Toolkit (RTK). However, implementing these approaches would still involve making the home or main page a client-side component.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+```
+
 ```

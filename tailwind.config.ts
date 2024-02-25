@@ -25,7 +25,7 @@ const config: Config = {
           DEFAULT: "rgba(59,60,152,0.03)",
           100: "rgba(59,60,152,0.02)",
         },
-        gray: "#747A88",
+        grey: "#747A88",
       },
     },
   },
