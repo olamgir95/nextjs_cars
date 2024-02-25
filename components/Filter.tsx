@@ -26,7 +26,7 @@ const Filter = ({ title, options }: FilterItemProps) => {
 
     setSelected(target.value);
 
-    // add as params
+    // Convert the title to lowercase and add it as a search parameter in the URL
     const newPathName = updateSearchParams(
       title.toLowerCase(),
       target.value.toLowerCase()
@@ -91,7 +91,7 @@ const Filter = ({ title, options }: FilterItemProps) => {
               value={option}
               className={`${
                 selected === option ? "font-bold text-black" : "text-gray-600"
-              } snap-center hover:bg-[#efefef] y-2 px-4 text-left`}
+              } w-full snap-center hover:bg-[#efefef] py-2 px-4 text-left`}
               onClick={(e) => handleClick(e)}
             >
               {option}

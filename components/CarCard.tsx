@@ -17,7 +17,7 @@ const CarCard = ({
   const carRent = calculateCarRent(cityMPG, year);
 
   return (
-    <div className="group flex flex-col p-6 justify-center items-start text-black-400 bg-[rgba(59,60,152,0.02)] rounded-[24px]">
+    <div className="group flex flex-col p-6 justify-center items-start text-black-400 bg-light-white-100 rounded-[24px] hover:shadow-md">
       <h2 className="text-[22px] leading-[26px] font-bold">
         {make.charAt(0).toUpperCase() + make.slice(1)}{" "}
         {model.charAt(0).toUpperCase() + model.slice(1)}
@@ -46,7 +46,7 @@ const CarCard = ({
       </div>
 
       <div className="relative flex w-full mt-2">
-        <div className="flex w-full justify-between text-[#747A88]">
+        <div className="flex w-full justify-between text-gray">
           <div className="flex flex-col justify-center items-center gap-2">
             <Image
               src="/steering-wheel.svg"
