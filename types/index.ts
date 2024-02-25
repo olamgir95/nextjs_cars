@@ -45,3 +45,9 @@ export interface Car {
 export interface HomeProps {
   searchParams: FilterProps;
 }
+
+export interface SearchButtonProps {
+  otherClasses?: string;
+  imgUrl?: string;
+  imgAlt?: string;
+}

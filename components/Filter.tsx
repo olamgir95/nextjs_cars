@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { updateSearchParams } from "@utils";
 interface FilterProps {
   title: string;
   options: string[];
@@ -13,33 +13,41 @@ const Filter = ({ title, options }: FilterProps) => {
 
   const [openModal, setOpenModal] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     setSelected(target.value);
 
     // add as params
-    updateSearchParams(target.value);
+    const newPathName = updateSearchParams(
+      title.toLowerCase(),
+      target.value.toLowerCase()
+    );
+
+    router.push(newPathName);
   };
 
-  const updateSearchParams = (selectedItem: string) => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const updatedParams = new URLSearchParams(searchParams.toString());
+  // close modal when clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setOpenModal(false);
+      }
+    };
 
-    const lowercaseTitleName = title.toLowerCase();
-    const lowercaseSelectedItem = selectedItem.toLowerCase();
-
-    updatedParams.set(lowercaseTitleName, lowercaseSelectedItem);
-
-    const newPathname = `${
-      window.location.pathname
-    }?${updatedParams.toString()}`;
-
-    router.push(newPathname);
-  };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
+      ref={modalRef}
       onClick={() => setOpenModal(!openModal)}
       className="flex flex-col items-center relative text-[14px] leading-[17px] justify-center cursor-pointer"
     >
@@ -64,7 +72,7 @@ const Filter = ({ title, options }: FilterProps) => {
 
       {openModal && (
         <div
-          className="flex flex-col absolute top-12 justify-start items-start w-full max-h-[200px] snap-y overflow-auto outline-0 border-[1px] border-black-300 bg-white-600 rounded-lg z-10"
+          className="flex flex-col absolute top-12 justify-start items-start w-full max-h-[200px] snap-y overflow-auto outline-0 border-[1px] border-black-300 bg-white-600 rounded-lg z-10 text-left"
           defaultValue="default"
         >
           {options?.map((option) => (
@@ -73,8 +81,8 @@ const Filter = ({ title, options }: FilterProps) => {
               type="button"
               value={option}
               className={`${
-                selected === option && "font-bold"
-              } snap-center hover:bg-[#efefef] w-full p-2`}
+                selected === option && "font-bold text-black"
+              } snap-center hover:bg-[#efefef] w-full p-2 text-left text-gray-600`}
               onClick={(e) => handleClick(e)}
             >
               {option}

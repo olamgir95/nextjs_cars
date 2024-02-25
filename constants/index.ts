@@ -65,12 +65,12 @@ export const footerLinks = [
       },
       {
         title: "Discord",
-        url: "https://discord.gg/KNay9TqYZg",
+        url: "/",
         icon: "/discord.svg",
       },
       {
         title: "LinkedIn",
-        url: "https://www.linkedin.com/company/javascriptmastery/",
+        url: "https://www.linkedin.com/in/olamgir-ollomurodov-228571270/",
         icon: "/linkedin.svg",
       },
     ],
