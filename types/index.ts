@@ -61,3 +61,13 @@ export interface SearchButtonProps {
   imgUrl?: string;
   imgAlt?: string;
 }
+
+export interface OptionProps {
+  title: string;
+  value: string;
+}
+
+export interface CustomFilterProps {
+  title: string;
+  options: OptionProps[];
+}
