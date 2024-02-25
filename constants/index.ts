@@ -60,7 +60,7 @@ export const footerLinks = [
     links: [
       {
         title: "Github",
-        url: "https://github.com/adrianhajdin?tab=repositories",
+        url: "https://github.com/olamgir95",
         icon: "/github.svg",
       },
       {
