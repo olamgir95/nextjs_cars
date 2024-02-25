@@ -2,13 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { updateSearchParams } from "@utils";
-interface FilterProps {
-  title: string;
-  options: string[];
-}
+import { deleteSearchParams, updateSearchParams } from "@utils";
+import { FilterItemProps } from "@types";
 
-const Filter = ({ title, options }: FilterProps) => {
+const Filter = ({ title, options }: FilterItemProps) => {
   const router = useRouter();
 
   const [openModal, setOpenModal] = useState(false);
@@ -17,6 +14,15 @@ const Filter = ({ title, options }: FilterProps) => {
 
   const handleClick = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
+    if (selected === target.value) {
+      setSelected("");
+
+      const newPathName = deleteSearchParams(title);
+      router.push(newPathName);
+
+      return;
+    }
+
     setSelected(target.value);
 
     // add as params
@@ -81,8 +87,8 @@ const Filter = ({ title, options }: FilterProps) => {
               type="button"
               value={option}
               className={`${
-                selected === option && "font-bold text-black"
-              } snap-center hover:bg-[#efefef] w-full p-2 text-left text-gray-600`}
+                selected === option ? "font-bold text-black" : "text-gray-600"
+              } snap-center hover:bg-[#efefef] w-full p-2 text-left`}
               onClick={(e) => handleClick(e)}
             >
               {option}

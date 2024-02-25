@@ -20,7 +20,12 @@ const Footer = () => (
           {item.isSocialMedia ? (
             <div className="flex gap-5">
               {item.links.map((link) => (
-                <a href={link.url} target="_blank" rel="noreferrer">
+                <a
+                  href={link.url}
+                  key={link.title}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src={link.icon}
                     alt={link.title}
