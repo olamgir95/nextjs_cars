@@ -27,7 +27,7 @@ export interface HomeProps {
   searchParams: FilterProps;
 }
 
-export interface CarCardProps {
+export interface CarProps {
   model: string;
   make: string;
   mpg: number;

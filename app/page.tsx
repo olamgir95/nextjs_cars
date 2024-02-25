@@ -1,7 +1,7 @@
-import { CarCard, ShowMore, SearchBar, CustomFilter } from "@components";
-import { fuels, yearsOfProduction } from "@constants";
-import { CarProps, HomeProps } from "@types";
 import { fetchCars } from "@utils";
+import { HomeProps } from "@types";
+import { fuels, yearsOfProduction } from "@constants";
+import { CarCard, ShowMore, SearchBar, CustomFilter } from "@components";
 
 export default async function Home({ searchParams }: HomeProps) {
   const allCars = await fetchCars({
@@ -15,47 +15,43 @@ export default async function Home({ searchParams }: HomeProps) {
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
-    <main className="sm:px-16 px-6 py-4">
-      <SearchBar />
-      <div className="flex max-md:flex-col md:justify-between max-md:items-start w-full mt-16">
-        <div className="flex flex-col items-start justify-start gap-y-2.5 text-black-400">
+    <main className="overflow-hidden">
+      =
+      <div className="mt-12 padding-x padding-y max-width" id="discover">
+        <div className="home__text-container">
           <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
           <p>Explore out cars you might like</p>
         </div>
 
-        <div className="flex justify-start flex-wrap items-center gap-2 max-md:pt-10">
-          <CustomFilter title="fuel" options={fuels} />
-          <CustomFilter title="year" options={yearsOfProduction} />
-        </div>
-      </div>
+        <div className="home__filters">
+          <SearchBar />
 
-      {!isDataEmpty ? (
-        <section className="flex flex-col w-full h-full">
-          <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
-            {allCars?.map((car: CarProps) => (
-              <CarCard
-                model={car.model}
-                make={car.make}
-                mpg={car.highway_mpg}
-                transmission={car.transmission}
-                year={car.year}
-                drive={car.drive}
-                cityMPG={car.city_mpg}
-              />
-            ))}
+          <div className="home__filter-container">
+            <CustomFilter title="fuel" options={fuels} />
+            <CustomFilter title="year" options={yearsOfProduction} />
           </div>
-
-          <ShowMore
-            pageNumber={(searchParams.limit || 10) / 10}
-            isNext={(searchParams.limit || 10) > allCars.length}
-          />
-        </section>
-      ) : (
-        <div className="mt-16 flex justify-center items-center flex-col gap-2">
-          <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-          <p>{allCars?.message}</p>
         </div>
-      )}
+
+        {!isDataEmpty ? (
+          <section>
+            <div className="home__cars-wrapper">
+              {allCars?.map((car) => (
+                <CarCard car={car} />
+              ))}
+            </div>
+
+            <ShowMore
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) > allCars.length}
+            />
+          </section>
+        ) : (
+          <div className="home__error-container">
+            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+            <p>{allCars?.message}</p>
+          </div>
+        )}
+      </div>
     </main>
   );
 }

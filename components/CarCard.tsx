@@ -1,27 +1,31 @@
-import { calculateCarRent } from "@utils";
-import CustomButton from "./CustomButton";
-import { CarCardProps } from "@types";
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
-const CarCard = ({
-  model,
-  make,
-  mpg,
-  transmission,
-  year,
-  drive,
-  cityMPG,
-}: CarCardProps) => {
-  const imaginApiKey = process.env.NEXT_PUBLIC_IMAGIN_API_KEY;
+import { calculateCarRent, generateCarImageUrl } from "@utils";
+import { CarProps } from "@types";
+import CustomButton from "./CustomButton";
+import CarDetails from "./CarDetails";
 
-  const carRent = calculateCarRent(cityMPG, year);
+interface CarCardProps {
+  car: CarProps;
+}
+
+const CarCard = ({ car }: CarCardProps) => {
+  const { city_mpg, year, make, model, transmission, drive } = car;
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const carRent = calculateCarRent(city_mpg, year);
 
   return (
-    <div className="group flex flex-col p-6 justify-center items-start text-black-400 bg-light-white-100 rounded-[24px] hover:shadow-md">
-      <h2 className="text-[22px] leading-[26px] font-bold">
-        {make.charAt(0).toUpperCase() + make.slice(1)}{" "}
-        {model.charAt(0).toUpperCase() + model.slice(1)}
-      </h2>
+    <div className="car-card group">
+      <div className="car-card__content">
+        <h2 className="car-card__content-title">
+          {make} {model}
+        </h2>
+      </div>
 
       <p className="flex mt-6 text-[32px] leading-[38px] font-extrabold">
         <span className="self-start text-[14px] leading-[17px] font-semibold">
@@ -33,11 +37,9 @@ const CarCard = ({
         </span>
       </p>
 
-      <div className="relative w-full h-40 my-4 object-contain">
+      <div className="relative w-full h-40 my-3 object-contain">
         <Image
-          src={`https://cdn.imagin.studio/getimage?customer=${imaginApiKey}&make=${make}&modelFamily=${
-            model.split(" ")[0]
-          }&zoomType=fullscreen&modelYear=${year}`}
+          src={generateCarImageUrl(car)}
           alt="car model"
           fill
           priority
@@ -46,7 +48,7 @@ const CarCard = ({
       </div>
 
       <div className="relative flex w-full mt-2">
-        <div className="flex w-full justify-between text-gray">
+        <div className="flex group-hover:invisible w-full justify-between text-grey">
           <div className="flex flex-col justify-center items-center gap-2">
             <Image
               src="/steering-wheel.svg"
@@ -58,25 +60,32 @@ const CarCard = ({
               {transmission === "a" ? "Automatic" : "Manual"}
             </p>
           </div>
-          <div className="flex flex-col justify-center items-center gap-2">
+          <div className="car-card__icon">
             <Image src="/tire.svg" width={20} height={20} alt="seat" />
-            <p className="text-[14px] leading-[17px]">{drive.toUpperCase()}</p>
+            <p className="car-card__icon-text">{drive.toUpperCase()}</p>
           </div>
-          <div className="flex flex-col justify-center items-center gap-2">
+          <div className="car-card__icon">
             <Image src="/gas.svg" width={20} height={20} alt="seat" />
-            <p className="text-[14px] leading-[17px]">{mpg} MPG</p>
+            <p className="car-card__icon-text">{city_mpg} MPG</p>
           </div>
         </div>
 
-        <div className="hidden group-hover:flex absolute bottom-0 w-full z-10">
+        <div className="car-card__btn-container">
           <CustomButton
-            title="Rent Now"
-            containerStyles="w-full py-[16px] rounded-lg bg-gradient-to-r from-[#5E60C1] from-[0.78%] to-[#7E80CD] to-[99.38%]"
+            title="View More"
+            containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
             rightIcon="/right-arrow.svg"
+            handleClick={() => setIsOpen(true)}
           />
         </div>
       </div>
+
+      <CarDetails
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+        car={car}
+      />
     </div>
   );
 };
