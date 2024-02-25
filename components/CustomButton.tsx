@@ -4,6 +4,7 @@ import { CustomButtonProps } from "@types";
 import Image from "next/image";
 
 const Button = ({
+  isDisabled,
   btnType,
   containerStyles,
   textStyles,

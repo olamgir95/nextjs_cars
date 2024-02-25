@@ -44,9 +44,10 @@ export interface CustomButtonProps {
   title: string;
   rightIcon?: string;
   handleClick?: MouseEventHandler<HTMLButtonElement>;
+  isDisabled?: boolean;
 }
 
-export interface PaginationProps {
+export interface ShowMoreProps {
   pageNumber: number;
   isNext: boolean;
 }
