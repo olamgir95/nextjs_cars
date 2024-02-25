@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: HomeProps) {
   });
 
   return (
-    <main>
+    <main className="sm:px-16 px-6 py-4">
       <SearchBar />
       <div className="flex max-md:flex-col md:justify-between max-md:items-start w-full pt-16">
         <div className="flex flex-col items-start justify-start gap-y-2.5 text-black-400">

@@ -41,6 +41,7 @@ const CarCard = ({
           alt="car model"
           fill
           priority
+          className="object-contain"
         />
       </div>
 
