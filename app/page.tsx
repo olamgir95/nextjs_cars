@@ -1,5 +1,5 @@
 import { CarCard, Filter, Pagination, SearchBar } from "@components";
-import { manufacturers, yearsOfProduction } from "@constants";
+import { yearsOfProduction } from "@constants";
 import { CarProps, HomeProps } from "@types";
 import { fetchCars } from "@utils";
 
@@ -35,7 +35,6 @@ export default async function Home({ searchParams }: HomeProps) {
 
         <div className="flex justify-start flex-wrap items-center gap-2 max-md:pt-10">
           <Filter title="Fuel" options={["Gas", "Electricity"]} />
-          <Filter title="Manufacturer" options={manufacturers} />
           <Filter title="Year" options={yearsOfProduction} />
         </div>
       </div>
