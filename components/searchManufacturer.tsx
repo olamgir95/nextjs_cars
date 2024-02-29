@@ -6,24 +6,28 @@ import { manufacturers } from "@constants";
 import { SearchManuFacturerProps } from "@types";
 
 const SearchManufacturer = ({
-  manufacturer,
-  setManuFacturer,
+  selected,
+  setSelected,
 }: SearchManuFacturerProps) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(""); // State for storing the search query
 
+  // Filter the manufacturers based on the search query
   const filteredManufacturers =
-    query === ""
-      ? manufacturers
-      : manufacturers.filter((item) =>
-          item
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
+    query === "" // If the search query is empty
+      ? manufacturers // Return all manufacturers
+      : manufacturers.filter(
+          (
+            item // return manufacturer that includes query value
+          ) =>
+            item
+              .toLowerCase() // convert manufacturer name to lowercase
+              .replace(/\s+/g, "") // remove whitespace from manufacturer name
+              .includes(query.toLowerCase().replace(/\s+/g, "")) // check if the manufacturer name includes the search query
         );
 
   return (
     <div className="search-manufacturer">
-      <Combobox value={manufacturer} onChange={setManuFacturer}>
+      <Combobox value={selected} onChange={setSelected}>
         <div className="relative w-full">
           {/* Button for the combobox. Click on the icon to see the complete dropdown */}
           <Combobox.Button className="absolute top-[14px]">
@@ -52,10 +56,8 @@ const SearchManufacturer = ({
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")} // Reset the search query after the transition completes
           >
-            <Combobox.Options
-              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-              static
-            >
+            <Combobox.Options className="search-manufacturer__options" static>
+              {/* If there are no filtered manufacturers and the query is not empty, show an option to create a new manufacturer */}
               {filteredManufacturers.length === 0 && query !== "" ? (
                 <Combobox.Option
                   value={query}
@@ -64,6 +66,7 @@ const SearchManufacturer = ({
                   Create "{query}"
                 </Combobox.Option>
               ) : (
+                // Display the filtered manufacturers as options
                 filteredManufacturers.map((item) => (
                   <Combobox.Option
                     key={item}
@@ -76,6 +79,7 @@ const SearchManufacturer = ({
                   >
                     {({ selected, active }) => (
                       <>
+                        {/* Display the manufacturer name */}
                         <span
                           className={`block truncate ${
                             selected ? "font-medium" : "font-normal"
